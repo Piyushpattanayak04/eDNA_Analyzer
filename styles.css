@@ -264,27 +264,205 @@ body {
 
 .dna-helix {
     position: relative;
-    width: 300px;
-    height: 400px;
+    width: 350px;
+    height: 450px;
+    margin: 0 auto;
 }
 
-.helix-strand {
+/* Importance Section */
+.importance-section {
+    padding: var(--spacing-xl) 0;
+    background: linear-gradient(135deg, var(--deep-ocean) 0%, var(--ocean-blue) 100%);
+    color: var(--foam-white);
+}
+
+.importance-section .section-header h2 {
+    color: var(--foam-white);
+}
+
+.importance-section .section-subtitle {
+    color: var(--aqua-light);
+}
+
+.importance-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+}
+
+.importance-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(103, 232, 249, 0.3);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-5px);
+    border-color: var(--aqua-light);
+}
+
+.stat-number {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: var(--aqua-light);
+    margin-bottom: var(--spacing-xs);
+    text-shadow: 0 0 20px rgba(103, 232, 249, 0.5);
+}
+
+.stat-label {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--foam-white);
+    margin-bottom: var(--spacing-sm);
+}
+
+.stat-description {
+    font-size: 0.9rem;
+    color: rgba(240, 249, 255, 0.8);
+    line-height: 1.5;
+}
+
+.importance-narrative {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--spacing-xl);
+    align-items: start;
+}
+
+.narrative-content h3 {
+    color: var(--aqua-light);
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+}
+
+.narrative-content h3:first-child {
+    margin-top: 0;
+}
+
+.narrative-content p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: rgba(240, 249, 255, 0.9);
+    margin-bottom: var(--spacing-md);
+}
+
+.impact-metrics {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+}
+
+.impact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-md);
+    border-left: 3px solid var(--teal-secondary);
+}
+
+.impact-item i {
+    color: var(--teal-secondary);
+    font-size: 1.5rem;
+    margin-top: var(--spacing-xs);
+}
+
+.impact-item h4 {
+    color: var(--foam-white);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+}
+
+.impact-item p {
+    color: rgba(240, 249, 255, 0.8);
+    font-size: 0.9rem;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.narrative-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ocean-ecosystem {
+    position: relative;
+    width: 280px;
+    height: 400px;
+    background: linear-gradient(180deg, 
+        rgba(103, 232, 249, 0.3) 0%,
+        rgba(6, 182, 212, 0.4) 25%,
+        rgba(8, 145, 178, 0.5) 50%,
+        rgba(30, 58, 138, 0.7) 75%,
+        rgba(10, 20, 40, 0.9) 100%);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 2px solid rgba(103, 232, 249, 0.3);
+    box-shadow: 0 0 30px rgba(6, 182, 212, 0.3);
+}
+
+.ecosystem-layer {
     position: absolute;
     width: 100%;
-    height: 100%;
-    border: 3px solid var(--aqua-light);
-    border-radius: 50%;
-    animation: rotate 20s linear infinite;
+    height: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
 }
 
-.helix-strand:nth-child(2) {
-    animation-delay: -10s;
-    border-color: var(--teal-secondary);
+.ecosystem-layer:hover {
+    background: rgba(255, 255, 255, 0.1);
 }
 
-@keyframes rotate {
-    0% { transform: rotateY(0deg) rotateX(15deg); }
-    100% { transform: rotateY(360deg) rotateX(15deg); }
+.ecosystem-layer[data-depth="surface"] {
+    top: 0;
+}
+
+.ecosystem-layer[data-depth="twilight"] {
+    top: 25%;
+}
+
+.ecosystem-layer[data-depth="midnight"] {
+    top: 50%;
+}
+
+.ecosystem-layer[data-depth="abyss"] {
+    top: 75%;
+    border-bottom: none;
+}
+
+.layer-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--foam-white);
+    margin-bottom: var(--spacing-xs);
+}
+
+.species-count {
+    font-size: 0.8rem;
+    color: var(--aqua-light);
+    font-weight: 500;
 }
 
 /* Section Styles */
@@ -939,6 +1117,24 @@ body {
 
     .tech-items {
         grid-template-columns: 1fr;
+    }
+    
+    .importance-narrative {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+    }
+    
+    .ocean-ecosystem {
+        width: 240px;
+        height: 320px;
+    }
+    
+    .stat-number {
+        font-size: 2.5rem;
+    }
+    
+    .narrative-content h3 {
+        font-size: 1.5rem;
     }
 }
 

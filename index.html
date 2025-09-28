@@ -5,25 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PhyloDive - AI-Powered Taxonomic Classification Platform</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="preloader-content">
+            <div class="preloader-icon">
+                <i class="fas fa-water"></i>
+            </div>
+            <div class="preloader-titles">
+                <div class="preloader-title">Analyzing eDNA sequences...</div>
+                <div class="preloader-title">Classifying marine species...</div>
+                <div class="preloader-title">Discovering novel organisms...</div>
+                <div class="preloader-title">Finalizing...</div>
+            </div>
+        </div>
+    </div>
+
     <!-- Navigation -->
     <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
+        <div class="nav-container container">
+            <a href="#home" class="nav-logo">
                 <i class="fas fa-dna"></i>
                 <span>PhyloDive</span>
-            </div>
+            </a>
             <ul class="nav-menu">
-                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#home" class="nav-link active">Home</a></li>
                 <li><a href="#importance" class="nav-link">Why It Matters</a></li>
-                <li><a href="#problem" class="nav-link">Problem</a></li>
-                <li><a href="#solution" class="nav-link">Solution</a></li>
+                <li><a href="#problem" class="nav-link">The Challenge</a></li>
+                <li><a href="#solution" class="nav-link">Our Solution</a></li>
                 <li><a href="#pipeline" class="nav-link">Pipeline</a></li>
-                <li><a href="#tech-stack" class="nav-link">Tech Stack</a></li>
                 <li><a href="#features" class="nav-link">Features</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
@@ -37,27 +51,22 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="hero-background">
-            <div class="wave-animation"></div>
-        </div>
-        <div class="hero-content">
+        <div class="hero-background"></div>
+        <div class="hero-content container">
             <div class="hero-text">
                 <h1>PhyloDive</h1>
                 <p class="hero-subtitle">AI-Powered Taxonomic Classification & Novel Organism Discovery</p>
                 <p class="hero-description">
-                    Revolutionary deep learning platform that transforms environmental DNA analysis, 
-                    accurately classifies known species, and discovers novel organisms hidden in marine ecosystems.
+                    A revolutionary deep learning platform that transforms environmental DNA analysis, 
+                    accurately classifies known species, and discovers novel organisms hidden in our planet's ecosystems.
                 </p>
                 <div class="hero-buttons">
-                    <button class="btn btn-primary">Explore Platform</button>
-                    <button class="btn btn-secondary">View Demo</button>
+                    <a href="https://huggingface.co/spaces/piyush-run/eDNA-Analyzer" class="btn btn-primary" target="_blank">Try Our Solution</a>
+                    <a href="#pipeline" class="btn btn-secondary">View Pipeline</a>
                 </div>
             </div>
             <div class="hero-visual">
-                <div class="dna-helix">
-                    <div class="helix-strand"></div>
-                    <div class="helix-strand"></div>
-                </div>
+                <div class="dna-helix"></div>
             </div>
         </div>
     </section>
@@ -66,91 +75,42 @@
     <section id="importance" class="importance-section">
         <div class="container">
             <div class="section-header">
-                <h2>Why Marine Biodiversity Discovery Matters</h2>
-                <p class="section-subtitle">The urgent need for advanced taxonomic classification in our changing oceans</p>
+                <h2>Why Marine Biodiversity Matters</h2>
+                <p class="section-subtitle">The urgent need for advanced taxonomic classification in our changing oceans.</p>
             </div>
             <div class="importance-content">
                 <div class="importance-stats">
                     <div class="stat-card">
-                        <div class="stat-number">91%+</div>
-                        <div class="stat-label">Marine Species Remain Undiscovered</div>
-                        <p class="stat-description">Scientists estimate that over 91% of marine species have yet to be identified, representing millions of unknown organisms.</p>
+                        <div class="stat-number">91%</div>
+                        <div class="stat-label">Marine Species Undiscovered</div>
+                        <p class="stat-description">An estimated 91% of marine species have yet to be formally described, representing a vast, unknown genetic library.</p>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-number">2.2M+</div>
-                        <div class="stat-label">Known Marine Species</div>
-                        <p class="stat-description">Current databases contain only ~2.2 million described marine species out of an estimated 25 million total.</p>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">50%+</div>
+                        <div class="stat-number">80%</div>
                         <div class="stat-label">Ocean Unexplored</div>
-                        <p class="stat-description">Less than 50% of our oceans have been explored, hiding vast ecosystems and novel life forms.</p>
+                        <p class="stat-description">More than 80% of our ocean is unmapped, unobserved, and unexplored, hiding countless ecosystems and novel life forms.</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">1M</div>
+                        <div class="stat-label">Species at Risk</div>
+                        <p class="stat-description">Around 1 million animal and plant species are now threatened with extinction, many within decades.</p>
                     </div>
                 </div>
                 
                 <div class="importance-narrative">
                     <div class="narrative-content">
-                        <h3>The Critical Challenge</h3>
+                        <h3>The Discovery Bottleneck</h3>
                         <p>
-                            Marine ecosystems are changing at an unprecedented rate due to climate change, pollution, and human activity. 
-                            Traditional taxonomic methods cannot keep pace with the urgent need to catalog biodiversity before it's lost forever. 
-                            Environmental DNA (eDNA) analysis offers a revolutionary approach to detect life in our oceans, but current 
-                            classification methods are fundamentally limited.
+                            Traditional methods of species identification are slow, expensive, and often require physical specimens. Environmental DNA (eDNA) offers a powerful alternative, but its analysis is plagued by incomplete reference databases and classifiers that cannot identify what they haven't seen before. This "closed-world" assumption is the single biggest barrier to discovering the true scope of biodiversity.
                         </p>
-                        
                         <h3>The PhyloDive Revolution</h3>
                         <p>
-                            PhyloDive transcends these limitations by combining three breakthrough technologies: 
-                            <strong>advanced AI architecture</strong> for robust pattern recognition, 
-                            <strong>anomaly detection systems</strong> that identify novel organisms, and 
-                            <strong>semi-supervised clustering</strong> that organizes discoveries into meaningful taxonomic groups. 
-                            This isn't just another classification tool—it's a discovery engine that can identify entirely new branches of life.
+                            PhyloDive shatters this limitation. By combining deep learning with anomaly detection, our platform not only classifies known organisms with state-of-the-art accuracy but also flags and clusters potential new species, opening a new frontier in biodiversity research.
                         </p>
-                        
-                        <div class="impact-metrics">
-                            <div class="impact-item">
-                                <i class="fas fa-microscope"></i>
-                                <div>
-                                    <h4>Scientific Impact</h4>
-                                    <p>Accelerates species discovery from decades to days, enabling rapid biodiversity assessment</p>
-                                </div>
-                            </div>
-                            <div class="impact-item">
-                                <i class="fas fa-leaf"></i>
-                                <div>
-                                    <h4>Conservation Impact</h4>
-                                    <p>Identifies endangered species and ecological hotspots before they're lost to environmental change</p>
-                                </div>
-                            </div>
-                            <div class="impact-item">
-                                <i class="fas fa-pills"></i>
-                                <div>
-                                    <h4>Medical Impact</h4>
-                                    <p>Discovers novel organisms with potential pharmaceutical and biotechnological applications</p>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     
                     <div class="narrative-visual">
-                        <div class="ocean-ecosystem">
-                            <div class="ecosystem-layer" data-depth="surface">
-                                <div class="layer-label">Surface Layer</div>
-                                <div class="species-count">~200k known species</div>
-                            </div>
-                            <div class="ecosystem-layer" data-depth="twilight">
-                                <div class="layer-label">Twilight Zone</div>
-                                <div class="species-count">~500k estimated species</div>
-                            </div>
-                            <div class="ecosystem-layer" data-depth="midnight">
-                                <div class="layer-label">Midnight Zone</div>
-                                <div class="species-count">~1M+ undiscovered species</div>
-                            </div>
-                            <div class="ecosystem-layer" data-depth="abyss">
-                                <div class="layer-label">Abyssal Zone</div>
-                                <div class="species-count">~10M+ unknown species</div>
-                            </div>
-                        </div>
+                        <div class="ocean-ecosystem"></div>
                     </div>
                 </div>
             </div>
@@ -161,47 +121,38 @@
     <section id="problem" class="problem-section">
         <div class="container">
             <div class="section-header">
-                <h2>The Challenge in Marine Biodiversity</h2>
-                <p class="section-subtitle">Current taxonomic classification faces critical limitations</p>
+                <h2>The Challenge in Genomic Classification</h2>
+                <p class="section-subtitle">Current methods for eDNA analysis face critical limitations that stifle discovery.</p>
             </div>
             <div class="problem-grid">
                 <div class="problem-card">
-                    <div class="problem-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <h3>Database Limitations</h3>
-                    <p>Reference databases suffer from mislabeled entries, taxonomic conflicts, and vast coverage gaps, especially for under-studied marine clades.</p>
+                    <div class="problem-icon"><i class="fas fa-database"></i></div>
+                    <h3>Database Gaps & Errors</h3>
+                    <p>Reference databases suffer from mislabeled entries, taxonomic conflicts, and vast coverage gaps, leading to inaccurate or incomplete classifications.</p>
                     <ul>
                         <li>Mislabeled sequences</li>
-                        <li>Sequencing errors</li>
-                        <li>Low taxonomic resolution</li>
-                        <li>Missing taxa representation</li>
+                        <li>Incomplete taxonomic trees</li>
+                        <li>Poor representation of rare taxa</li>
                     </ul>
                 </div>
                 <div class="problem-card">
-                    <div class="problem-icon">
-                        <i class="fas fa-search"></i>
-                    </div>
-                    <h3>Novel Species Detection</h3>
-                    <p>Traditional methods fail to identify new organisms, forcing unknown species into existing categories and missing biodiversity discoveries.</p>
+                    <div class="problem-icon"><i class="fas fa-eye-slash"></i></div>
+                    <h3>The "Closed-World" Problem</h3>
+                    <p>Traditional classifiers can only assign a sequence to a known category. Novel organisms are either misclassified or discarded, rendering them invisible.</p>
                     <ul>
-                        <li>Closed-world assumption</li>
                         <li>High-confidence misclassifications</li>
-                        <li>Missing novel organism detection</li>
-                        <li>Limited discovery capability</li>
+                        <li>Novelty is treated as error</li>
+                        <li>Discovery potential is lost</li>
                     </ul>
                 </div>
                 <div class="problem-card">
-                    <div class="problem-icon">
-                        <i class="fas fa-cogs"></i>
-                    </div>
-                    <h3>Technical Barriers</h3>
-                    <p>Current pipelines lack sophisticated AI architectures needed to learn robust patterns from noisy, incomplete genomic data.</p>
+                    <div class="problem-icon"><i class="fas fa-cogs"></i></div>
+                    <h3>Algorithmic Limitations</h3>
+                    <p>Simple models fail to learn the complex, hierarchical patterns in genomic data, leading to poor generalization and limited error tolerance.</p>
                     <ul>
-                        <li>Simple classification models</li>
-                        <li>Poor handling of sequence context</li>
-                        <li>Limited error tolerance</li>
-                        <li>Lack of interpretability</li>
+                        <li>Lack of contextual understanding</li>
+                        <li>Sensitivity to sequencing errors</li>
+                        <li>Inability to model taxonomy</li>
                     </ul>
                 </div>
             </div>
@@ -212,53 +163,40 @@
     <section id="solution" class="solution-section">
         <div class="container">
             <div class="section-header">
-                <h2>PhyloDive: A Revolutionary Solution</h2>
-                <p class="section-subtitle">Multi-stage AI architecture for comprehensive taxonomic analysis</p>
+                <h2>Our Solution: A Multi-Stage AI Engine</h2>
+                <p class="section-subtitle">PhyloDive's hybrid architecture for comprehensive taxonomic analysis.</p>
             </div>
             <div class="solution-content">
-                <div class="solution-overview">
-                    <div class="solution-text">
-                        <h3>Hybrid AI Engine</h3>
-                        <p>PhyloDive employs a sophisticated three-stage AI architecture that goes beyond traditional classification:</p>
-                        <div class="solution-stages">
-                            <div class="stage">
-                                <div class="stage-number">01</div>
-                                <div class="stage-content">
-                                    <h4>Supervised Multi-Task Learning</h4>
-                                    <p>Transformer-based model for accurate classification of known organisms across the full taxonomic hierarchy.</p>
-                                </div>
+                <div class="solution-text">
+                    <h3>Hybrid AI Engine</h3>
+                    <p>PhyloDive employs a sophisticated three-stage AI architecture that goes beyond traditional classification, enabling both accurate identification and novel discovery.</p>
+                    <div class="solution-stages">
+                        <div class="solution-stage">
+                            <div class="stage-number">1</div>
+                            <div class="stage-info">
+                                <h4>Hierarchical Classification</h4>
+                                <p>A multi-task Transformer predicts the full taxonomic lineage, respecting biological hierarchy.</p>
                             </div>
-                            <div class="stage">
-                                <div class="stage-number">02</div>
-                                <div class="stage-content">
-                                    <h4>Unsupervised Anomaly Detection</h4>
-                                    <p>Autoencoder architecture flags sequences that deviate from known biological patterns.</p>
-                                </div>
+                        </div>
+                        <div class="solution-stage">
+                            <div class="stage-number">2</div>
+                            <div class="stage-info">
+                                <h4>Novelty Detection</h4>
+                                <p>An autoencoder identifies sequences that are anomalous to the known genetic landscape.</p>
                             </div>
-                            <div class="stage">
-                                <div class="stage-number">03</div>
-                                <div class="stage-content">
-                                    <h4>Semi-Supervised Clustering</h4>
-                                    <p>Groups anomalous sequences into coherent clusters representing potential new taxa.</p>
-                                </div>
+                        </div>
+                        <div class="solution-stage">
+                            <div class="stage-number">3</div>
+                            <div class="stage-info">
+                                <h4>Discovery Clustering</h4>
+                                <p>Anomalous sequences are grouped into potential new taxa for further investigation.</p>
                             </div>
                         </div>
                     </div>
-                    <div class="solution-visual">
-                        <div class="ai-architecture">
-                            <div class="architecture-layer">
-                                <div class="layer-icon"><i class="fas fa-brain"></i></div>
-                                <span>Transformer Layer</span>
-                            </div>
-                            <div class="architecture-layer">
-                                <div class="layer-icon"><i class="fas fa-search-plus"></i></div>
-                                <span>Anomaly Detection</span>
-                            </div>
-                            <div class="architecture-layer">
-                                <div class="layer-icon"><i class="fas fa-project-diagram"></i></div>
-                                <span>Clustering Engine</span>
-                            </div>
-                        </div>
+                </div>
+                <div class="solution-visual">
+                    <div class="ai-architecture">
+                        <!-- JS-driven animation will be placed here -->
                     </div>
                 </div>
             </div>
@@ -269,228 +207,76 @@
     <section id="pipeline" class="pipeline-section">
         <div class="container">
             <div class="section-header">
-                <h2>Complete Analysis Pipeline</h2>
-                <p class="section-subtitle">From raw sequences to novel discoveries</p>
+                <h2>End-to-End Analysis Pipeline</h2>
+                <p class="section-subtitle">From raw sequences to actionable insights and novel discoveries.</p>
             </div>
             <div class="pipeline-flow">
-                <div class="pipeline-step" data-step="1">
-                    <div class="step-icon">
-                        <i class="fas fa-file-upload"></i>
-                    </div>
-                    <h3>Data Preprocessing</h3>
-                    <p>QIIME 2 & DADA2 pipeline for high-fidelity ASV generation</p>
-                    <div class="step-details">
-                        <ul>
-                            <li>Quality assessment & filtering</li>
-                            <li>Error correction & denoising</li>
-                            <li>Chimera removal</li>
-                            <li>ASV inference</li>
-                        </ul>
-                    </div>
+                <div class="pipeline-step">
+                    <div class="step-icon"><i class="fas fa-vial"></i></div>
+                    <h3>1. Data Preprocessing</h3>
+                    <p>QIIME 2 & DADA2 pipelines generate high-fidelity Amplicon Sequence Variants (ASVs).</p>
                 </div>
-                <div class="pipeline-arrow">
-                    <i class="fas fa-arrow-right"></i>
+                <div class="pipeline-arrow"><i class="fas fa-arrow-right"></i></div>
+                <div class="pipeline-step">
+                    <div class="step-icon"><i class="fas fa-project-diagram"></i></div>
+                    <h3>2. Sequence Encoding</h3>
+                    <p>Advanced k-mer embeddings create rich, contextual representations of sequences.</p>
                 </div>
-                <div class="pipeline-step" data-step="2">
-                    <div class="step-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <h3>Sequence Encoding</h3>
-                    <p>Advanced k-mer embedding for rich sequence representation</p>
-                    <div class="step-details">
-                        <ul>
-                            <li>K-mer decomposition</li>
-                            <li>Learned embeddings</li>
-                            <li>Context-aware encoding</li>
-                            <li>Dense vector representation</li>
-                        </ul>
-                    </div>
+                <div class="pipeline-arrow"><i class="fas fa-arrow-right"></i></div>
+                <div class="pipeline-step">
+                    <div class="step-icon"><i class="fas fa-brain"></i></div>
+                    <h3>3. AI Analysis</h3>
+                    <p>Our multi-stage AI engine classifies known taxa and detects novel organisms.</p>
                 </div>
-                <div class="pipeline-arrow">
-                    <i class="fas fa-arrow-right"></i>
-                </div>
-                <div class="pipeline-step" data-step="3">
-                    <div class="step-icon">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                    <h3>AI Classification</h3>
-                    <p>Multi-task Transformer for hierarchical taxonomy prediction</p>
-                    <div class="step-details">
-                        <ul>
-                            <li>CNN motif detection</li>
-                            <li>Transformer self-attention</li>
-                            <li>Multi-task learning</li>
-                            <li>Confidence scoring</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="pipeline-arrow">
-                    <i class="fas fa-arrow-right"></i>
-                </div>
-                <div class="pipeline-step" data-step="4">
-                    <div class="step-icon">
-                        <i class="fas fa-search"></i>
-                    </div>
-                    <h3>Novelty Detection</h3>
-                    <p>Autoencoder-based anomaly detection for unknown organisms</p>
-                    <div class="step-details">
-                        <ul>
-                            <li>Reconstruction error analysis</li>
-                            <li>Anomaly threshold detection</li>
-                            <li>Novel sequence flagging</li>
-                            <li>Discovery workbench</li>
-                        </ul>
-                    </div>
+                <div class="pipeline-arrow"><i class="fas fa-arrow-right"></i></div>
+                <div class="pipeline-step">
+                    <div class="step-icon"><i class="fas fa-chart-bar"></i></div>
+                    <h3>4. Visualization & Discovery</h3>
+                    <p>Results are explored through interactive trees, maps, and a discovery workbench.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Tech Stack Section -->
-    <section id="tech-stack" class="tech-stack-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Technology Stack</h2>
-                <p class="section-subtitle">Cutting-edge tools for genomic AI</p>
-            </div>
-            <div class="tech-categories">
-                <div class="tech-category">
-                    <h3><i class="fas fa-dna"></i> Bioinformatics</h3>
-                    <div class="tech-items">
-                        <div class="tech-item">
-                            <div class="tech-logo">Q2</div>
-                            <span>QIIME 2</span>
-                        </div>
-                        <div class="tech-item">
-                            <div class="tech-logo">D2</div>
-                            <span>DADA2</span>
-                        </div>
-                        <div class="tech-item">
-                            <div class="tech-logo">NF</div>
-                            <span>Nextflow</span>
-                        </div>
-                        <div class="tech-item">
-                            <div class="tech-logo">BP</div>
-                            <span>BioPython</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="tech-category">
-                    <h3><i class="fas fa-robot"></i> AI/ML Framework</h3>
-                    <div class="tech-items">
-                        <div class="tech-item">
-                            <div class="tech-logo">PT</div>
-                            <span>PyTorch</span>
-                        </div>
-                        <div class="tech-item">
-                            <div class="tech-logo">HF</div>
-                            <span>Transformers</span>
-                        </div>
-                        <div class="tech-item">
-                            <div class="tech-logo">SK</div>
-                            <span>Scikit-learn</span>
-                        </div>
-                        <div class="tech-item">
-                            <div class="tech-logo">NP</div>
-                            <span>NumPy</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="tech-category">
-                    <h3><i class="fas fa-database"></i> Data & Storage</h3>
-                    <div class="tech-items">
-                        <div class="tech-item">
-                            <div class="tech-logo">NC</div>
-                            <span>NCBI</span>
-                        </div>
-                        <div class="tech-item">
-                            <div class="tech-logo">SV</div>
-                            <span>SILVA</span>
-                        </div>
-                        <div class="tech-item">
-                            <div class="tech-logo">BD</div>
-                            <span>BOLD</span>
-                        </div>
-                        <div class="tech-item">
-                            <div class="tech-logo">GT</div>
-                            <span>GTDB</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="tech-category">
-                    <h3><i class="fas fa-chart-line"></i> Visualization</h3>
-                    <div class="tech-items">
-                        <div class="tech-item">
-                            <div class="tech-logo">IT</div>
-                            <span>iTOL</span>
-                        </div>
-                        <div class="tech-item">
-                            <div class="tech-logo">PL</div>
-                            <span>Plotly</span>
-                        </div>
-                        <div class="tech-item">
-                            <div class="tech-logo">D3</div>
-                            <span>D3.js</span>
-                        </div>
-                        <div class="tech-item">
-                            <div class="tech-logo">MB</div>
-                            <span>Matplotlib</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Tech Stack Section is removed as it's redundant with the new README -->
 
     <!-- Features Section -->
     <section id="features" class="features-section">
         <div class="container">
             <div class="section-header">
-                <h2>Key Features</h2>
-                <p class="section-subtitle">Advanced capabilities for scientific discovery</p>
+                <h2>Platform Features</h2>
+                <p class="section-subtitle">Advanced capabilities designed for cutting-edge scientific discovery.</p>
             </div>
             <div class="features-grid">
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-project-diagram"></i>
-                    </div>
-                    <h3>Interactive Phylogenetic Trees</h3>
-                    <p>Dynamic visualization of taxonomic placement with confidence scoring and evolutionary context.</p>
+                    <div class="feature-icon"><i class="fas fa-sitemap"></i></div>
+                    <h3>Interactive Phylogenetics</h3>
+                    <p>Dynamic visualization of taxonomic placements with confidence scores and evolutionary context.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-eye"></i>
-                    </div>
+                    <div class="feature-icon"><i class="fas fa-lightbulb"></i></div>
                     <h3>Model Interpretability</h3>
-                    <p>Attention map visualizations showing which sequence regions influenced classification decisions.</p>
+                    <p>Attention map visualizations reveal which sequence regions influenced classification decisions.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-flask"></i>
-                    </div>
+                    <div class="feature-icon"><i class="fas fa-flask"></i></div>
                     <h3>Discovery Workbench</h3>
-                    <p>Dedicated interface for exploring novel organism clusters with detailed metadata and analysis tools.</p>
+                    <p>An interface for exploring novel organism clusters with detailed metadata and analysis tools.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-chart-bar"></i>
-                    </div>
+                    <div class="feature-icon"><i class="fas fa-layer-group"></i></div>
                     <h3>Abundance Estimation</h3>
-                    <p>Advanced ecological modeling for spatially explicit species biomass and density estimates.</p>
+                    <p>Advanced ecological models provide spatially explicit estimates of species biomass and density.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-sync-alt"></i>
-                    </div>
+                    <div class="feature-icon"><i class="fas fa-sync-alt"></i></div>
                     <h3>Continuous Learning</h3>
-                    <p>Living database with automated updates and model retraining for improved accuracy over time.</p>
+                    <p>A living database with automated updates and model retraining for ever-improving accuracy.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-code-branch"></i>
-                    </div>
+                    <div class="feature-icon"><i class="fas fa-code-branch"></i></div>
                     <h3>API Integration</h3>
-                    <p>RESTful API for seamless integration into existing bioinformatics workflows and automated analysis.</p>
+                    <p>A RESTful API for seamless integration into existing bioinformatics workflows and automated analysis.</p>
                 </div>
             </div>
         </div>
@@ -501,28 +287,35 @@
         <div class="container">
             <div class="section-header">
                 <h2>Get in Touch</h2>
-                <p class="section-subtitle">Ready to explore marine biodiversity with PhyloDive?</p>
+                <p class="section-subtitle">Ready to explore the future of biodiversity discovery with PhyloDive?</p>
             </div>
             <div class="contact-content">
                 <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Virtual, with global collaborators</span>
+                    </div>
                     <div class="contact-item">
                         <i class="fas fa-envelope"></i>
                         <span>contact@phylodive.org</span>
                     </div>
                     <div class="contact-item">
                         <i class="fab fa-github"></i>
-                        <span>github.com/phylodive</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-globe"></i>
-                        <span>www.phylodive.org</span>
+                        <span>github.com/Piyushpattanayak04</span>
                     </div>
                 </div>
                 <div class="contact-form">
-                    <form>
-                        <input type="text" placeholder="Your Name" required>
-                        <input type="email" placeholder="Your Email" required>
-                        <textarea placeholder="Your Message" rows="5" required></textarea>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" class="form-control" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" class="form-control" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" class="form-control" rows="5" placeholder="Your Message" required></textarea>
+                        </div>
                         <button type="submit" class="btn btn-primary">Send Message</button>
                     </form>
                 </div>
@@ -535,38 +328,47 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
-                    <div class="nav-logo">
+                    <a href="#home" class="nav-logo">
                         <i class="fas fa-dna"></i>
                         <span>PhyloDive</span>
-                    </div>
-                    <p>Revolutionizing marine biodiversity discovery through AI</p>
+                    </a>
+                    <p>Revolutionizing biodiversity discovery through AI.</p>
                 </div>
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4>Platform</h4>
-                        <a href="#problem">Problem</a>
-                        <a href="#solution">Solution</a>
-                        <a href="#pipeline">Pipeline</a>
-                    </div>
-                    <div class="footer-column">
-                        <h4>Technology</h4>
-                        <a href="#tech-stack">Tech Stack</a>
-                        <a href="#features">Features</a>
-                        <a href="#">Documentation</a>
-                    </div>
-                    <div class="footer-column">
-                        <h4>Resources</h4>
-                        <a href="#">API</a>
-                        <a href="#">Tutorials</a>
-                        <a href="#">Support</a>
+                <div class="footer-column footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#importance">Why It Matters</a></li>
+                        <li><a href="#solution">Our Solution</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column footer-links">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">API Reference</a></li>
+                        <li><a href="#">Whitepaper</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Connect With Us</h4>
+                    <div class="footer-socials">
+                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 PhyloDive. All rights reserved.</p>
+                <p>&copy; 2024 PhyloDive. All rights reserved. An open-source initiative.</p>
             </div>
         </div>
     </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTop" title="Go to top"><i class="fas fa-arrow-up"></i></button>
 
     <script src="script.js"></script>
 </body>

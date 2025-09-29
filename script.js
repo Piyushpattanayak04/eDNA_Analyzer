@@ -4,24 +4,116 @@ document.addEventListener('DOMContentLoaded', () => {
     // Performance-first loading - disable heavy animations
     const isMobile = window.innerWidth <= 1024 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     
-    // Initialize essential functionality with optimized features
+    // Initialize essential functionality with aggressive performance optimization
     initFastPreloader();
-    initLightweightNavigation();
+    initUltraLightNavigation();
+    initSmoothScrolling(); // Add smooth scrolling
+    initScrollToTopButton(); // Add scroll to top functionality
     initResponsiveHandling();
     
-    // Initialize optimized visual features
+    // Initialize performance-optimized cursor
+    initProfessionalCursor();
+    
+    // Initialize highly optimized visual features
     initOptimizedDNAHelix();
-    initOptimizedScrollAnimations();
+    initHighPerformanceScrolling();
     initLazyLoading();
     
-    console.log('Optimized mode: Selective animations enabled for better UX with good performance');
+    console.log('Ultra-optimized mode: Maximum performance with professional cursor');
     
-    // Monitor performance
+    // Monitor performance and cursor
     monitorINP();
+    monitorCursorPerformance();
 });
 
 /**
- * Premium Custom Cursor
+ * Professional Custom Cursor - Ultra Performance
+ * High-performance white ball cursor with smooth animations
+ */
+function initProfessionalCursor() {
+    // Only initialize on desktop devices with mouse
+    if (window.innerWidth <= 768 || 'ontouchstart' in window) return;
+    
+    const cursor = document.createElement('div');
+    cursor.className = 'custom-cursor';
+    document.body.appendChild(cursor);
+    
+    let mouseX = 0, mouseY = 0;
+    let isMoving = false;
+    let animationId = null;
+    
+    // High-performance mouse tracking
+    const updateMousePosition = (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        
+        if (!isMoving) {
+            isMoving = true;
+            animationId = requestAnimationFrame(updateCursor);
+        }
+    };
+    
+    // Smooth cursor animation with RAF
+    const updateCursor = () => {
+        cursor.style.left = mouseX + 'px';
+        cursor.style.top = mouseY + 'px';
+        isMoving = false;
+    };
+    
+    // Event listeners
+    document.addEventListener('mousemove', updateMousePosition, { passive: true });
+    
+    // Interactive elements hover effects with better selector
+    const setupHoverEffects = () => {
+        const interactiveElements = document.querySelectorAll(
+            'a, button, .btn, .nav-link, .stat-card, .feature-card, .problem-card, .pipeline-step, input, textarea, [role="button"], [tabindex]'
+        );
+        
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.classList.add('hover');
+            }, { passive: true });
+            
+            el.addEventListener('mouseleave', () => {
+                cursor.classList.remove('hover');
+            }, { passive: true });
+        });
+    };
+    
+    // Initial setup
+    setupHoverEffects();
+    
+    // Re-setup when new elements are added (for lazy-loaded content)
+    const observer = new MutationObserver(() => {
+        setupHoverEffects();
+    });
+    
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+    
+    // Click effect
+    document.addEventListener('mousedown', () => {
+        cursor.classList.add('click');
+    });
+    
+    document.addEventListener('mouseup', () => {
+        cursor.classList.remove('click');
+    });
+    
+    // Hide cursor when leaving window
+    document.addEventListener('mouseleave', () => {
+        cursor.style.opacity = '0';
+    });
+    
+    document.addEventListener('mouseenter', () => {
+        cursor.style.opacity = '1';
+    });
+}
+
+/**
+ * Legacy Premium Custom Cursor (DISABLED)
  * Creates a sophisticated cursor with smooth following animation
  */
 function initCustomCursor() {
@@ -82,9 +174,29 @@ function initFastPreloader() {
         setTimeout(() => {
             preloader.classList.add('hidden');
             document.body.classList.add('loaded');
+            // Ensure body scroll is enabled
+            document.body.style.overflow = '';
+            document.body.style.height = '';
             preloader.remove();
         }, 100); // Very fast removal
+    } else {
+        // If no preloader, ensure body scroll is enabled
+        document.body.classList.add('loaded');
+        document.body.style.overflow = '';
+        document.body.style.height = '';
     }
+    
+    // Fallback: Ensure content is always visible after 1 second
+    setTimeout(() => {
+        if (!document.body.classList.contains('loaded')) {
+            document.body.classList.add('loaded');
+            console.log('Fallback: Added loaded class to body');
+        }
+        // Force remove any scroll blocking
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.height = '';
+    }, 1000);
 }
 
 /**
@@ -152,10 +264,10 @@ function initPreloader() {
 
 
 /**
- * Lightweight Navigation - Optimized for Performance
- * Essential navigation without heavy animations
+ * Ultra-Light Navigation - Maximum Performance
+ * Minimal navigation with aggressive scroll optimization
  */
-function initLightweightNavigation() {
+function initUltraLightNavigation() {
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
     const navLinks = document.querySelectorAll('.nav-link');
@@ -179,21 +291,129 @@ function initLightweightNavigation() {
         });
     });
 
-    // Simple navbar scroll effect (throttled for performance)
+    // Ultra-optimized scroll handler
+    let scrolling = false;
     let scrollTimer;
-    window.addEventListener('scroll', () => {
-        clearTimeout(scrollTimer);
-        scrollTimer = setTimeout(() => {
+    let lastScrollY = window.scrollY;
+    
+    const handleScroll = () => {
+        const currentScrollY = window.scrollY;
+        
+        // Add scrolling class to disable animations
+        if (!scrolling) {
+            document.body.classList.add('scrolling');
+            scrolling = true;
+            
+            // Debug scroll event
+            console.log('Scroll detected, position:', currentScrollY);
+            
+            // Optimize cursor during scroll
+            const cursor = document.querySelector('.custom-cursor');
+            if (cursor) {
+                cursor.style.transition = 'none';
+            }
+        }
+        
+        // Only update navbar if scroll position changed significantly
+        if (Math.abs(currentScrollY - lastScrollY) > 10) {
             const navbar = document.querySelector('.navbar');
             if (navbar) {
-                if (window.scrollY > 50) {
+                if (currentScrollY > 50) {
                     navbar.classList.add('scrolled');
                 } else {
                     navbar.classList.remove('scrolled');
                 }
             }
-        }, 16); // ~60fps throttling
+            lastScrollY = currentScrollY;
+        }
+        
+        // Remove scrolling class after scroll ends
+        clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(() => {
+            document.body.classList.remove('scrolling');
+            scrolling = false;
+            
+            // Re-enable cursor transitions
+            const cursor = document.querySelector('.custom-cursor');
+            if (cursor) {
+                cursor.style.transition = 'transform 0.1s ease, scale 0.2s ease';
+            }
+        }, 100);
+    };
+    
+    // Use passive listener for better performance
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // Debug: Test scroll functionality
+    console.log('Scroll listener added, initial scroll position:', window.scrollY);
+    
+    // Test scroll after page load
+    setTimeout(() => {
+        console.log('Page fully loaded. Document height:', document.body.scrollHeight);
+        console.log('Viewport height:', window.innerHeight);
+        console.log('Can scroll:', document.body.scrollHeight > window.innerHeight);
+        console.log('Body overflow style:', window.getComputedStyle(document.body).overflow);
+        
+        // Manual scroll test
+        console.log('Testing manual scroll...');
+        window.scrollTo({ top: 100, behavior: 'smooth' });
+        setTimeout(() => {
+            console.log('After scroll test, position:', window.scrollY);
+        }, 1000);
+    }, 500);
+}
+
+/**
+ * Smooth Scrolling
+ * Implements smooth scrolling for internal navigation links.
+ */
+function initSmoothScrolling() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                const offsetTop = target.getBoundingClientRect().top + window.pageYOffset - 80; // Account for navbar
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
+                });
+                
+                // Close mobile menu if open
+                const hamburger = document.querySelector('.hamburger');
+                const navMenu = document.querySelector('.nav-menu');
+                if (hamburger && hamburger.classList.contains('active')) {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    document.body.style.overflow = ''; // Re-enable scroll
+                }
+            }
+        });
     });
+}
+
+/**
+ * Scroll to Top Button
+ * Displays a button to scroll to the top of the page when scrolled down.
+ */
+function initScrollToTopButton() {
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    if (scrollToTopBtn) {
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollToTopBtn.classList.add('visible');
+            } else {
+                scrollToTopBtn.classList.remove('visible');
+            }
+        }, { passive: true });
+
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
 }
 
 /**
@@ -1287,15 +1507,21 @@ function setupMobileNavigation() {
     const toggleBodyScroll = (disable) => {
         if (disable) {
             document.body.style.overflow = 'hidden';
+            document.body.style.position = 'fixed';
+            document.body.style.width = '100%';
         } else {
             document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.width = '';
         }
     };
     
     if (hamburger) {
         hamburger.addEventListener('click', () => {
             const isActive = hamburger.classList.contains('active');
-            toggleBodyScroll(!isActive);
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            toggleBodyScroll(hamburger.classList.contains('active'));
         });
     }
 }
@@ -1340,32 +1566,29 @@ console.log(
 );
 
 /**
- * Optimized Scroll Animations
- * Lightweight scroll animations with intersection observer
+ * High-Performance Scrolling System
+ * Ultra-optimized scrolling with minimal overhead
  */
-function initOptimizedScrollAnimations() {
-    const animatedElements = document.querySelectorAll(
-        '.section-header, .stat-card, .problem-card, .feature-card, .pipeline-step'
-    );
+function initHighPerformanceScrolling() {
+    // Minimal scroll animations - only for essential elements
+    const essentialElements = document.querySelectorAll('.section-header');
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
                 observer.unobserve(entry.target);
             }
         });
     }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+        threshold: 0.3, // Higher threshold for fewer triggers
+        rootMargin: '0px 0px -100px 0px'
     });
 
-    // Set initial state and observe
-    animatedElements.forEach(el => {
+    // Minimal initial state
+    essentialElements.forEach(el => {
         el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        el.style.transition = 'opacity 0.3s ease';
         observer.observe(el);
     });
 }
@@ -1380,29 +1603,27 @@ function initLazyLoading() {
     const sectionObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                // Add loaded class for any section-specific animations
+                // Only add loaded class, skip heavy animations during scroll
                 entry.target.classList.add('loaded');
                 
-                // Initialize section-specific features when they become visible
+                // Delay heavy initializations to avoid scroll blocking
                 const sectionId = entry.target.id;
-                switch(sectionId) {
-                    case 'importance':
-                        initStatsAnimation(entry.target);
-                        break;
-                    case 'pipeline':
-                        initPipelineAnimation(entry.target);
-                        break;
-                    case 'features':
-                        initFeatureCards(entry.target);
-                        break;
-                }
+                setTimeout(() => {
+                    switch(sectionId) {
+                        case 'importance':
+                            if (!document.body.classList.contains('scrolling')) {
+                                initStatsAnimation(entry.target);
+                            }
+                            break;
+                    }
+                }, 200); // Delay to avoid blocking scroll
                 
                 sectionObserver.unobserve(entry.target);
             }
         });
     }, {
-        threshold: 0.2,
-        rootMargin: '0px 0px -100px 0px'
+        threshold: 0.4, // Higher threshold to trigger less frequently
+        rootMargin: '0px 0px -200px 0px' // Larger margin to reduce triggers
     });
 
     sections.forEach(section => {
@@ -1411,7 +1632,7 @@ function initLazyLoading() {
 }
 
 /**
- * Stats Animation - Only when visible
+ * Optimized Stats Animation - Minimal resource usage
  */
 function initStatsAnimation(section) {
     const statNumbers = section.querySelectorAll('.stat-number');
@@ -1422,7 +1643,7 @@ function initStatsAnimation(section) {
         const numericValue = parseInt(finalValue.replace(/[^\d]/g, ''));
         
         let currentValue = 0;
-        const increment = numericValue / 50; // 50 steps for animation
+        const increment = numericValue / 20; // Reduced to 20 steps for better performance
         
         const counter = setInterval(() => {
             currentValue += increment;
@@ -1434,7 +1655,7 @@ function initStatsAnimation(section) {
             stat.textContent = isPercentage ? 
                 Math.floor(currentValue) + '%' : 
                 Math.floor(currentValue) + (finalValue.includes('M') ? 'M' : '');
-        }, 30);
+        }, 50); // Slower interval to reduce CPU usage
     });
 }
 
@@ -1475,6 +1696,41 @@ function initFeatureCards(section) {
             card.style.transform = 'translateY(0) scale(1)';
         });
     });
+}
+
+/**
+ * Cursor Performance Monitor
+ * Monitors cursor performance and optimizes based on frame rate
+ */
+function monitorCursorPerformance() {
+    if (!document.querySelector('.custom-cursor')) return;
+    
+    let frameCount = 0;
+    let lastTime = performance.now();
+    
+    const checkPerformance = () => {
+        frameCount++;
+        const currentTime = performance.now();
+        
+        if (currentTime - lastTime >= 1000) { // Check every second
+            const fps = frameCount;
+            frameCount = 0;
+            lastTime = currentTime;
+            
+            // Optimize cursor based on performance
+            const cursor = document.querySelector('.custom-cursor');
+            if (cursor && fps < 30) {
+                // Reduce cursor quality on low-end devices
+                cursor.style.boxShadow = 'none';
+                cursor.style.backdropFilter = 'none';
+                console.log('%cCursor optimized for low-end device', 'color: orange');
+            }
+        }
+        
+        requestAnimationFrame(checkPerformance);
+    };
+    
+    requestAnimationFrame(checkPerformance);
 }
 
 /**

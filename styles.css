@@ -87,6 +87,7 @@ main, .container {
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 1s ease 0.3s, transform 1s ease 0.3s;
+    animation: fallbackFadeIn 2s ease 2s forwards; /* Fallback animation after 2s */
 }
 
 body.loaded main,
@@ -95,21 +96,58 @@ body.loaded .container {
     transform: translateY(0);
 }
 
+/* Emergency visibility fix - ensure content is always visible */
+.container, main {
+    animation: emergencyShow 0.1s ease 3s forwards;
+}
+
+@keyframes emergencyShow {
+    to {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+    }
+}
+
 html {
     scroll-behavior: smooth;
 }
 
-/* Premium Cursor */
+/* Professional Custom Cursor */
 * {
-    cursor: none;
+    cursor: none !important;
 }
 
-a, button, .btn, .nav-link {
-    cursor: none;
+a, button, .btn, .nav-link, input, textarea {
+    cursor: none !important;
 }
 
-/* Disable custom cursor on mobile devices */
-@media (max-width: 1024px) {
+.custom-cursor {
+    position: fixed;
+    width: 12px;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: difference;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease, scale 0.2s ease;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(2px);
+}
+
+.custom-cursor.hover {
+    transform: translate(-50%, -50%) scale(1.5);
+    background: rgba(6, 182, 212, 0.9);
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.6);
+}
+
+.custom-cursor.click {
+    transform: translate(-50%, -50%) scale(0.8);
+}
+
+/* Mobile cursor optimization */
+@media (max-width: 768px) and (pointer: coarse) {
     * {
         cursor: auto !important;
     }
@@ -118,35 +156,12 @@ a, button, .btn, .nav-link {
         cursor: pointer !important;
     }
     
-    .custom-cursor,
-    .custom-cursor-follower {
+    .custom-cursor {
         display: none !important;
-        pointer-events: none !important;
     }
 }
 
-.custom-cursor {
-    position: fixed;
-    width: 20px;
-    height: 20px;
-    background: var(--gradient-accent);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999;
-    mix-blend-mode: difference;
-    transition: transform 0.2s ease-out;
-}
-
-.custom-cursor-follower {
-    position: fixed;
-    width: 8px;
-    height: 8px;
-    background: var(--neutral-white);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9998;
-    transition: transform 0.1s ease-out;
-}
+/* Legacy cursor styles - updated for new system */
 
 body::before {
     content: '';
@@ -1736,6 +1751,13 @@ body.loaded .section-subtitle {
     to { opacity: 1; }
 }
 
+@keyframes fallbackFadeIn {
+    to {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+    }
+}
+
 .scroll-animate {
     opacity: 0;
     transform: translateY(50px);
@@ -2420,7 +2442,32 @@ h1, h2, h3, h4, h5, h6 {
    PERFORMANCE OPTIMIZATIONS FOR BETTER INP
    ================================ */
 
-/* Optimized animations for better performance while maintaining UX */
+/* ULTIMATE SCROLL PERFORMANCE OPTIMIZATION */
+* {
+    /* Force GPU acceleration for smooth scrolling */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+    -webkit-transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+}
+
+/* Optimize scrolling container */
+html {
+    scroll-behavior: auto !important; /* Disable smooth scroll for performance */
+    -webkit-overflow-scrolling: touch;
+}
+
+body {
+    /* Optimize rendering during scroll */
+    contain: layout style paint;
+    overflow-x: hidden;
+    will-change: scroll-position;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Disable expensive effects during scroll */
 .floating-particle,
 .bubble,
 .premium-gradient,
@@ -2428,20 +2475,36 @@ h1, h2, h3, h4, h5, h6 {
     display: none !important;
 }
 
-/* Allow essential animations but optimize them */
-.dna-helix canvas {
-    display: block !important;
+/* Optimize DNA helix for scroll performance */
+.dna-helix {
+    contain: layout style paint;
     will-change: auto;
 }
 
-/* Optimize transitions for better performance */
-.btn, .card, .nav-link {
-    transition-duration: 0.2s !important;
+/* Disable all transitions during scroll for performance */
+.scrolling * {
+    transition: none !important;
+    animation: none !important;
 }
 
-/* Faster but visible animations for UI elements */
+.scrolling .custom-cursor {
+    transition: none !important;
+}
+
+/* Optimize sections for scroll performance */
+section {
+    contain: layout style;
+    transform: translateZ(0);
+}
+
+/* Ultra-fast transitions for UI elements */
+.btn, .card, .nav-link {
+    transition-duration: 0.1s !important;
+}
+
+/* Optimized animations - only when not scrolling */
 .section-header, .stat-card, .problem-card, .feature-card, .pipeline-step {
-    transition: opacity 0.6s ease, transform 0.6s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 /* Optimize layout and painting */
@@ -2449,19 +2512,28 @@ body {
     contain: layout style;
 }
 
-/* Reduce repaints on hover effects */
-.btn:hover,
-.card:hover,
-.nav-link:hover {
+/* Disable all hover effects during scroll */
+.scrolling .btn:hover,
+.scrolling .card:hover,
+.scrolling .nav-link:hover,
+.scrolling .stat-card:hover,
+.scrolling .feature-card:hover {
     transform: none !important;
+    transition: none !important;
 }
 
-/* Remove expensive filters and shadows for performance */
+/* Simplified shadows for performance */
 .card,
 .btn,
 .navbar {
     filter: none !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Optimize navbar for scroll */
+.navbar {
+    contain: layout style;
+    will-change: background-color;
 }
 
 /* Enhanced animations for better UX */
@@ -2490,15 +2562,39 @@ body {
     transition: transform 0.3s ease !important;
 }
 
-/* Respect reduced motion preferences */
+/* Mobile scroll optimizations */
+@media (max-width: 768px) {
+    * {
+        /* Aggressive optimization for mobile */
+        transform: none !important;
+        transition: none !important;
+        animation: none !important;
+    }
+    
+    body {
+        -webkit-overflow-scrolling: touch;
+        overflow-x: hidden;
+    }
+    
+    .dna-helix {
+        display: none !important; /* Hide 3D model on mobile for performance */
+    }
+}
+
+/* Respect reduced motion preferences and force performance */
 @media (prefers-reduced-motion: reduce) {
-    .fade-in,
-    .slide-up,
-    .pipeline-step,
-    .pipeline-arrow {
+    * {
         animation: none !important;
         opacity: 1 !important;
         transform: none !important;
         transition: none !important;
+    }
+}
+
+/* High contrast users likely have slower devices */
+@media (prefers-contrast: high) {
+    * {
+        transition: none !important;
+        animation: none !important;
     }
 }

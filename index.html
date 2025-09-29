@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PhyloDive - AI-Powered Taxonomic Classification Platform</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
@@ -51,6 +51,7 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
+        <div id="bubbles-background"></div>
         <div class="hero-background"></div>
         <div class="hero-content container">
             <div class="hero-text">
@@ -79,24 +80,24 @@
                 <p class="section-subtitle">The urgent need for advanced taxonomic classification in our changing oceans.</p>
             </div>
             <div class="importance-content">
-                                <div class="importance-stats">
+                <div class="importance-stats">
                     <div class="stat-card">
                         <div class="stat-number">91%</div>
-                        <div class="stat-label">Undiscovered Marine Species</div>
-                        <div class="stat-description">Scientists estimate that over 91% of marine species remain unknown to science, hidden in the vast depths of our oceans.</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">2.2M</div>
-                        <div class="stat-label">Known Marine Species</div>
-                        <div class="stat-description">Only about 2.2 million marine species have been formally described, representing a tiny fraction of ocean biodiversity.</div>
+                        <div class="stat-label">Marine Species Undiscovered</div>
+                        <p class="stat-description">An estimated 91% of marine species have yet to be formally described, representing a vast, unknown genetic library.</p>
                     </div>
                     <div class="stat-card">
                         <div class="stat-number">80%</div>
                         <div class="stat-label">Ocean Unexplored</div>
-                        <div class="stat-description">More than 80% of our ocean remains unmapped and unexplored, containing countless species yet to be discovered.</div>
+                        <p class="stat-description">More than 80% of our ocean is unmapped, unobserved, and unexplored, hiding countless ecosystems and novel life forms.</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">1M</div>
+                        <div class="stat-label">Species at Risk</div>
+                        <p class="stat-description">Around 1 million animal and plant species are now threatened with extinction, many within decades.</p>
                     </div>
                 </div>
-                
+
                 <div class="importance-narrative">
                     <div class="narrative-content">
                         <h3>The Discovery Bottleneck</h3>
@@ -108,7 +109,7 @@
                             PhyloDive shatters this limitation. By combining deep learning with anomaly detection, our platform not only classifies known organisms with state-of-the-art accuracy but also flags and clusters potential new species, opening a new frontier in biodiversity research.
                         </p>
                     </div>
-                    
+
                     <div class="narrative-visual">
                         <div class="ocean-ecosystem"></div>
                     </div>

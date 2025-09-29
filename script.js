@@ -8,163 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollToTopButton();
     initContactForm();
     initDNAHelix();
+    initMarineCreatures();
 });
 
 /**
- * Professional Custom Cursor - Ultra Performance
- * High-performance white ball cursor with smooth animations
- */
-function initProfessionalCursor() {
-    // Only initialize on desktop devices with mouse
-    if (window.innerWidth <= 768 || 'ontouchstart' in window) return;
-    
-    const cursor = document.createElement('div');
-    cursor.className = 'custom-cursor';
-    document.body.appendChild(cursor);
-    
-    let mouseX = 0, mouseY = 0;
-    let isMoving = false;
-    let animationId = null;
-    
-    // High-performance mouse tracking
-    const updateMousePosition = (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-        
-        if (!isMoving) {
-            isMoving = true;
-            animationId = requestAnimationFrame(updateCursor);
-        }
-    };
-    
-    // Smooth cursor animation with RAF
-    const updateCursor = () => {
-        cursor.style.left = mouseX + 'px';
-        cursor.style.top = mouseY + 'px';
-        isMoving = false;
-    };
-    
-    // Event listeners
-    document.addEventListener('mousemove', updateMousePosition, { passive: true });
-    
-    // Interactive elements hover effects with better selector
-    const setupHoverEffects = () => {
-        const interactiveElements = document.querySelectorAll(
-            'a, button, .btn, .nav-link, .stat-card, .feature-card, .problem-card, .pipeline-step, input, textarea, [role="button"], [tabindex]'
-        );
-        
-        interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursor.classList.add('hover');
-            }, { passive: true });
-            
-            el.addEventListener('mouseleave', () => {
-                cursor.classList.remove('hover');
-            }, { passive: true });
-        });
-    };
-    
-    // Initial setup
-    setupHoverEffects();
-    
-    // Re-setup when new elements are added (for lazy-loaded content)
-    const observer = new MutationObserver(() => {
-        setupHoverEffects();
-    });
-    
-    observer.observe(document.body, {
-        childList: true,
-        subtree: true
-    });
-    
-    // Click effect
-    document.addEventListener('mousedown', () => {
-        cursor.classList.add('click');
-    });
-    
-    document.addEventListener('mouseup', () => {
-        cursor.classList.remove('click');
-    });
-    
-    // Hide cursor when leaving window
-    document.addEventListener('mouseleave', () => {
-        cursor.style.opacity = '0';
-    });
-    
-    document.addEventListener('mouseenter', () => {
-        cursor.style.opacity = '1';
-    });
-}
-
-/**
- * Legacy Premium Custom Cursor (DISABLED)
- * Creates a sophisticated cursor with smooth following animation
- */
-function initCustomCursor() {
-    const cursor = document.createElement('div');
-    cursor.className = 'custom-cursor';
-    const follower = document.createElement('div');
-    follower.className = 'custom-cursor-follower';
-    
-    document.body.appendChild(cursor);
-    document.body.appendChild(follower);
-    
-    let mouseX = 0, mouseY = 0;
-    let cursorX = 0, cursorY = 0;
-    let followerX = 0, followerY = 0;
-    
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-    });
-    
-    function updateCursor() {
-        // Smooth cursor movement
-        cursorX += (mouseX - cursorX) * 0.1;
-        cursorY += (mouseY - cursorY) * 0.1;
-        followerX += (mouseX - followerX) * 0.05;
-        followerY += (mouseY - followerY) * 0.05;
-        
-        cursor.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
-        follower.style.transform = `translate(${followerX - 4}px, ${followerY - 4}px)`;
-        
-        requestAnimationFrame(updateCursor);
-    }
-    updateCursor();
-    
-    // Hover effects for interactive elements
-    const interactiveElements = document.querySelectorAll('a, button, .btn, .nav-link, .card');
-    interactiveElements.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            cursor.style.transform += ' scale(1.5)';
-            cursor.style.background = 'var(--gradient-secondary)';
-        });
-        el.addEventListener('mouseleave', () => {
-            cursor.style.transform = cursor.style.transform.replace(' scale(1.5)', '');
-            cursor.style.background = 'var(--gradient-accent)';
-        });
-    });
-}
-
-/**
- * Fast Preloader - Optimized for Performance
- * Quickly hides preloader to improve INP
- */
-function initFastPreloader() {
-    const preloader = document.getElementById('preloader');
-    
-    // Remove preloader immediately for better performance
-    if (preloader) {
-        setTimeout(() => {
-            preloader.classList.add('hidden');
-            document.body.classList.add('loaded');
-            preloader.remove();
-        }, 100); // Very fast removal
-    }
-}
-
-/**
- * Original Preloader Logic (DISABLED FOR PERFORMANCE)
+ * Preloader Logic
  * Hides the preloader after the window has fully loaded and cycles through titles.
  */
 function initPreloader() {
@@ -177,7 +25,6 @@ function initPreloader() {
         window.addEventListener('load', () => {
             if (preloader) {
                 preloader.classList.add('hidden');
-                document.body.classList.add('loaded');
                 preloader.addEventListener('transitionend', () => preloader.remove());
             }
         });
@@ -188,11 +35,10 @@ function initPreloader() {
     const cycleTitles = () => {
         if (currentIndex >= titles.length) {
             // End of titles, hide preloader
-        if (preloader) {
-            preloader.classList.add('hidden');
-            document.body.classList.add('loaded');
-            preloader.addEventListener('transitionend', () => preloader.remove());
-        }
+            if (preloader) {
+                preloader.classList.add('hidden');
+                preloader.addEventListener('transitionend', () => preloader.remove());
+            }
             return;
         }
 
@@ -203,15 +49,15 @@ function initPreloader() {
             previousTitle.classList.remove('active');
             previousTitle.classList.add('previous');
         }
-        
+
         currentTitle.classList.add('active');
-        
+
         currentIndex++;
     };
 
-    // Fast preloader for better performance
+    // Start cycling on DOMContentLoaded, then continue on an interval
     cycleTitles(); // Show the first title immediately
-    const titleInterval = setInterval(cycleTitles, 500); // Cycle every 0.5 seconds for faster loading
+    const titleInterval = setInterval(cycleTitles, 2000); // Cycle every 2 seconds
 
     // As a fallback, ensure preloader is hidden after window load and some delay
     window.addEventListener('load', () => {
@@ -219,7 +65,6 @@ function initPreloader() {
             if (!preloader.classList.contains('hidden')) {
                 clearInterval(titleInterval);
                 preloader.classList.add('hidden');
-                document.body.classList.add('loaded');
                 preloader.addEventListener('transitionend', () => preloader.remove());
             }
         }, titles.length * 2000); // Wait for all titles to have had a chance to show
@@ -228,86 +73,7 @@ function initPreloader() {
 
 
 /**
- * Ultra-Light Navigation - Maximum Performance
- * Minimal navigation with aggressive scroll optimization
- */
-function initUltraLightNavigation() {
-    const hamburger = document.querySelector('.hamburger');
-    const navMenu = document.querySelector('.nav-menu');
-    const navLinks = document.querySelectorAll('.nav-link');
-
-    // Simple mobile menu toggle
-    if (hamburger && navMenu) {
-        hamburger.addEventListener('click', (e) => {
-            e.stopPropagation();
-            hamburger.classList.toggle('active');
-            navMenu.classList.toggle('active');
-        });
-    }
-
-    // Close menu when link clicked
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            if (hamburger && hamburger.classList.contains('active')) {
-                hamburger.classList.remove('active');
-                navMenu.classList.remove('active');
-            }
-        });
-    });
-
-    // Ultra-optimized scroll handler
-    let scrolling = false;
-    let scrollTimer;
-    let lastScrollY = window.scrollY;
-    
-    const handleScroll = () => {
-        const currentScrollY = window.scrollY;
-        
-        // Add scrolling class to disable animations
-        if (!scrolling) {
-            document.body.classList.add('scrolling');
-            scrolling = true;
-            
-            // Optimize cursor during scroll
-            const cursor = document.querySelector('.custom-cursor');
-            if (cursor) {
-                cursor.style.transition = 'none';
-            }
-        }
-        
-        // Only update navbar if scroll position changed significantly
-        if (Math.abs(currentScrollY - lastScrollY) > 10) {
-            const navbar = document.querySelector('.navbar');
-            if (navbar) {
-                if (currentScrollY > 50) {
-                    navbar.classList.add('scrolled');
-                } else {
-                    navbar.classList.remove('scrolled');
-                }
-            }
-            lastScrollY = currentScrollY;
-        }
-        
-        // Remove scrolling class after scroll ends
-        clearTimeout(scrollTimer);
-        scrollTimer = setTimeout(() => {
-            document.body.classList.remove('scrolling');
-            scrolling = false;
-            
-            // Re-enable cursor transitions
-            const cursor = document.querySelector('.custom-cursor');
-            if (cursor) {
-                cursor.style.transition = 'transform 0.1s ease, scale 0.2s ease';
-            }
-        }, 100);
-    };
-    
-    // Use passive listener for better performance
-    window.addEventListener('scroll', handleScroll, { passive: true });
-}
-
-/**
- * Original Navigation Functionality (DISABLED FOR PERFORMANCE)
+ * Navigation Functionality
  * Handles mobile menu, active link highlighting, and navbar styling on scroll.
  */
 function initNavigation() {
@@ -318,17 +84,9 @@ function initNavigation() {
 
     // Toggle mobile menu
     if (hamburger && navMenu) {
-        hamburger.addEventListener('click', (e) => {
-            e.stopPropagation();
+        hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
-            
-            // Prevent body scroll when menu is open
-            if (navMenu.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = '';
-            }
         });
     }
 
@@ -338,7 +96,6 @@ function initNavigation() {
             if (hamburger.classList.contains('active')) {
                 hamburger.classList.remove('active');
                 navMenu.classList.remove('active');
-                document.body.style.overflow = '';
             }
         });
     });
@@ -467,26 +224,12 @@ function initContactForm() {
 }
 
 /**
- * Optimized DNA Helix Animation
- * Performance-optimized 3D DNA helix using Three.js with smooth animations
+ * DNA Helix Animation
+ * Initializes and animates a 3D DNA helix using Three.js.
  */
-function initOptimizedDNAHelix() {
+function initDNAHelix() {
     const container = document.querySelector('.dna-helix');
     if (!container) return;
-    
-    // Performance check - only initialize on visible containers
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                initDNAHelixContent(container);
-                observer.unobserve(container);
-            }
-        });
-    });
-    observer.observe(container);
-}
-
-function initDNAHelixContent(container) {
 
     // Clear any existing content
     container.innerHTML = '';
@@ -495,7 +238,7 @@ function initDNAHelixContent(container) {
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, container.offsetWidth / container.offsetHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    
+
     renderer.setSize(container.offsetWidth, container.offsetHeight);
     renderer.setClearColor(0x000000, 0); // Transparent background
     container.appendChild(renderer.domElement);
@@ -535,18 +278,18 @@ function initDNAHelixContent(container) {
     const dnaGroup = new THREE.Group();
     const strand1Points = [];
     const strand2Points = [];
-    
+
     // Generate helix points
     for (let i = 0; i < totalParticles; i++) {
         const t = i / totalParticles;
         const angle = t * turns * Math.PI * 2;
         const y = (t - 0.5) * helixHeight;
-        
+
         // Strand 1
         const x1 = Math.cos(angle) * helixRadius;
         const z1 = Math.sin(angle) * helixRadius;
         strand1Points.push(new THREE.Vector3(x1, y, z1));
-        
+
         // Strand 2 (opposite side)
         const x2 = Math.cos(angle + Math.PI) * helixRadius;
         const z2 = Math.sin(angle + Math.PI) * helixRadius;
@@ -575,7 +318,7 @@ function initDNAHelixContent(container) {
         if (i % 4 === 0) {
             const basePair = new THREE.Mesh(cylinderGeometry, basePairMaterial);
             basePair.position.copy(strand1Points[i]).lerp(strand2Points[i], 0.5);
-            
+
             // Orient the cylinder between the two points
             const direction = new THREE.Vector3().subVectors(strand2Points[i], strand1Points[i]);
             const quaternion = new THREE.Quaternion().setFromUnitVectors(
@@ -583,7 +326,7 @@ function initDNAHelixContent(container) {
                 direction.normalize()
             );
             basePair.setRotationFromQuaternion(quaternion);
-            
+
             dnaGroup.add(basePair);
             basePairs.push(basePair);
         }
@@ -636,65 +379,50 @@ function initDNAHelixContent(container) {
     camera.position.set(0, 0, 8);
     camera.lookAt(0, 0, 0);
 
-    // Optimized animation loop with smoother, slower animations
+    // Animation loop
     let animationId;
-    let lastTime = 0;
-    const targetFPS = 30; // Reduced FPS for better performance
-    const fpsInterval = 1000 / targetFPS;
-    
-    const animate = (currentTime) => {
+    const animate = () => {
         animationId = requestAnimationFrame(animate);
-        
-        // Throttle animation to 30fps for better performance
-        if (currentTime - lastTime < fpsInterval) return;
-        lastTime = currentTime;
-        
-        // Slower, smoother rotation - reduced from 0.005 to 0.002
-        dnaGroup.rotation.y += 0.002;
-        
-        // Slower, gentler bobbing motion - reduced frequency
-        dnaGroup.position.y = Math.sin(currentTime * 0.0005) * 0.15;
-        
-        // Optimize animations - only update every other frame
-        if (Math.floor(currentTime / fpsInterval) % 2 === 0) {
-            // Animate individual base pairs with slower pulsing
-            basePairs.forEach((basePair, index) => {
-                const phase = (currentTime * 0.001) + (index * 0.2); // Slower phase
-                basePair.scale.x = 1 + Math.sin(phase) * 0.08; // Reduced amplitude
-                basePair.material.opacity = 0.6 + Math.sin(phase) * 0.15; // Smoother opacity
-            });
-            
-            // Animate strand spheres with gentler pulsing effect
-            strand1Spheres.forEach((sphere, index) => {
-                const phase = (currentTime * 0.0015) + (index * 0.08); // Slower animation
-                sphere.scale.setScalar(1 + Math.sin(phase) * 0.1); // Reduced scale variation
-            });
-            
-            // Animate second strand with phase offset
-            strand2Spheres.forEach((sphere, index) => {
-                const phase = (currentTime * 0.0015) + (index * 0.08) + Math.PI; // Slower with phase offset
-                sphere.scale.setScalar(1 + Math.sin(phase) * 0.1); // Consistent scale variation
-            });
-        }
-        
+
+        // Rotate the DNA helix
+        dnaGroup.rotation.y += 0.005;
+
+        // Gentle bobbing motion
+        dnaGroup.position.y = Math.sin(Date.now() * 0.001) * 0.2;
+
+        // Animate individual base pairs
+        basePairs.forEach((basePair, index) => {
+            const phase = (Date.now() * 0.002) + (index * 0.3);
+            basePair.scale.x = 1 + Math.sin(phase) * 0.1;
+            basePair.material.opacity = 0.7 + Math.sin(phase) * 0.2;
+        });
+
+        // Animate strand spheres with pulsing effect
+        strand1Spheres.forEach((sphere, index) => {
+            const phase = (Date.now() * 0.003) + (index * 0.1);
+            sphere.scale.setScalar(1 + Math.sin(phase) * 0.15);
+        });
+
+        strand2Spheres.forEach((sphere, index) => {
+            const phase = (Date.now() * 0.003) + (index * 0.1) + Math.PI;
+            sphere.scale.setScalar(1 + Math.sin(phase) * 0.15);
+        });
+
         renderer.render(scene, camera);
     };
-    
+
     animate();
-    
-    // Mark as loaded after initialization
-    container.classList.add('loaded');
 
     // Handle window resize
     const handleResize = () => {
         const width = container.offsetWidth;
         const height = container.offsetHeight;
-        
+
         camera.aspect = width / height;
         camera.updateProjectionMatrix();
         renderer.setSize(width, height);
     };
-    
+
     window.addEventListener('resize', handleResize);
 
     // Mouse interaction
@@ -707,7 +435,7 @@ function initDNAHelixContent(container) {
         const rect = container.getBoundingClientRect();
         mouseX = ((event.clientX - rect.left) / rect.width) * 2 - 1;
         mouseY = -((event.clientY - rect.top) / rect.height) * 2 + 1;
-        
+
         targetRotationX = mouseY * 0.3;
         targetRotationY = mouseX * 0.3;
     };
@@ -720,10 +448,10 @@ function initDNAHelixContent(container) {
         camera.position.x += (mouseX * 2 - camera.position.x) * 0.05;
         camera.position.y += (mouseY * 2 - camera.position.y) * 0.05;
         camera.lookAt(0, 0, 0);
-        
+
         requestAnimationFrame(updateMouseInteraction);
     };
-    
+
     updateMouseInteraction();
 
     // Cleanup function
@@ -733,7 +461,7 @@ function initDNAHelixContent(container) {
         }
         window.removeEventListener('resize', handleResize);
         container.removeEventListener('mousemove', onMouseMove);
-        
+
         // Dispose of geometries and materials
         scene.traverse((object) => {
             if (object.geometry) {
@@ -744,13 +472,13 @@ function initDNAHelixContent(container) {
                 object.material.dispose();
             }
         });
-        
+
         renderer.dispose();
     };
 
     // Store cleanup function for potential future use
     container._dnaHelixCleanup = cleanup;
-    
+
     // Intersection Observer for performance optimization
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -766,8 +494,145 @@ function initDNAHelixContent(container) {
             }
         });
     });
-    
+
     observer.observe(container);
+}
+
+/**
+ * Marine Creatures Animation
+ * Creates and animates cute marine creatures in the hero background
+ */
+function initMarineCreatures() {
+    const bubblesBackground = document.getElementById('bubbles-background');
+    if (!bubblesBackground) return;
+
+    const marineCreatures = [
+        { icon: '🐠', size: '2rem', speed: 15000 },   // Tropical fish
+        { icon: '🐟', size: '1.8rem', speed: 18000 }, // Fish
+        { icon: '🐙', size: '2.5rem', speed: 25000 }, // Octopus
+        { icon: '🦑', size: '2.2rem', speed: 22000 }, // Squid
+        { icon: '🐡', size: '1.5rem', speed: 20000 }, // Pufferfish
+        { icon: '🦈', size: '3rem', speed: 12000 },   // Shark
+        { icon: '🐢', size: '2.8rem', speed: 30000 }, // Turtle
+        { icon: '🦞', size: '1.8rem', speed: 16000 }, // Lobster
+        { icon: '🦀', size: '1.6rem', speed: 14000 }, // Crab
+        { icon: '🐚', size: '1.2rem', speed: 35000 }, // Shell
+        { icon: '🪼', size: '2rem', speed: 28000 },   // Jellyfish
+    ];
+
+    function createMarineCreature() {
+    const creature = marineCreatures[Math.floor(Math.random() * marineCreatures.length)];
+    const creatureElement = document.createElement('div');
+    
+    creatureElement.className = 'marine-creature';
+    creatureElement.innerHTML = creature.icon;
+    
+    // Random starting position (right side, random height)
+    const startY = Math.random() * 80 + 10; // 10% to 90% from top
+    const startX = window.innerWidth + 100; // Start beyond right side
+    const endX = - (window.innerWidth + 200); // End far left
+    
+    // Random vertical movement (drift)
+    const verticalMovement = (Math.random() - 0.5) * 200; // ±100px vertical drift
+    
+    creatureElement.style.cssText = `
+        position: absolute;
+        left: ${startX}px;
+        top: ${startY}%;
+        font-size: ${creature.size};
+        z-index: 0;
+        pointer-events: none;
+        opacity: 0.7;
+        transition: none;
+        filter: drop-shadow(0 0 10px rgba(45, 212, 191, 0.3));
+    `;
+    
+    bubblesBackground.appendChild(creatureElement);
+    
+    // Animate the creature swimming across
+    const duration = creature.speed + (Math.random() * 5000); // Add some randomness
+    const animation = creatureElement.animate([
+        {
+            transform: 'translateX(0px) translateY(0px) scaleX(-1)', // flipped to face left
+            opacity: 0.7
+        },
+        {
+            transform: `translateX(${endX}px) translateY(${verticalMovement}px) scaleX(-1)`,
+            opacity: 0.7
+        }
+    ], {
+        duration: duration,
+        easing: 'linear',
+        fill: 'forwards'
+    });
+    
+    // Remove creature after animation
+    animation.addEventListener('finish', () => {
+        if (creatureElement.parentNode) {
+            creatureElement.parentNode.removeChild(creatureElement);
+        }
+    });
+}
+
+    
+    // Create initial creatures
+    for (let i = 0; i < 3; i++) {
+        setTimeout(() => createMarineCreature(), i * 2000);
+    }
+    
+    // Create new creatures periodically
+    setInterval(createMarineCreature, 3000 + Math.random() * 4000);
+    
+    // Create bubbles continuously
+    function createBubble() {
+        const bubble = document.createElement('div');
+        bubble.className = 'bubble';
+        
+        const size = Math.random() * 30 + 10; // 10-40px
+        const startX = Math.random() * window.innerWidth;
+        const duration = Math.random() * 6000 + 8000; // 8-14 seconds
+        
+        bubble.style.cssText = `
+            position: absolute;
+            left: ${startX}px;
+            bottom: -50px;
+            width: ${size}px;
+            height: ${size}px;
+            background: radial-gradient(circle at 30% 30%, rgba(45, 212, 191, 0.3), rgba(45, 212, 191, 0.1));
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(45, 212, 191, 0.5);
+            pointer-events: none;
+            z-index: 0;
+        `;
+        
+        bubblesBackground.appendChild(bubble);
+        
+        // Animate bubble rising
+        const horizontalDrift = (Math.random() - 0.5) * 200; // Random horizontal movement
+        const animation = bubble.animate([
+            {
+                transform: 'translateY(0px) translateX(0px) scale(1)',
+                opacity: 1
+            },
+            {
+                transform: `translateY(-${window.innerHeight + 100}px) translateX(${horizontalDrift}px) scale(1.5)`,
+                opacity: 0
+            }
+        ], {
+            duration: duration,
+            easing: 'ease-out',
+            fill: 'forwards'
+        });
+        
+        animation.addEventListener('finish', () => {
+            if (bubble.parentNode) {
+                bubble.parentNode.removeChild(bubble);
+            }
+        });
+    }
+    
+    // Create bubbles periodically
+    setInterval(createBubble, 500 + Math.random() * 1000);
 }
 
 // Console welcome message for developers
@@ -783,206 +648,3 @@ console.log(
     '%cInterested in contributing? Contact us at contact@phylodive.org',
     'color: #059669; font-size: 10px;'
 );
-
-/**
- * High-Performance Scrolling System
- * Ultra-optimized scrolling with minimal overhead
- */
-function initHighPerformanceScrolling() {
-    // Minimal scroll animations - only for essential elements
-    const essentialElements = document.querySelectorAll('.section-header');
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                observer.unobserve(entry.target);
-            }
-        });
-    }, {
-        threshold: 0.3, // Higher threshold for fewer triggers
-        rootMargin: '0px 0px -100px 0px'
-    });
-
-    // Minimal initial state
-    essentialElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transition = 'opacity 0.3s ease';
-        observer.observe(el);
-    });
-}
-
-/**
- * Lazy Loading System
- * Loads content sections as they become visible
- */
-function initLazyLoading() {
-    const sections = document.querySelectorAll('section:not(#home)');
-    
-    const sectionObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                // Only add loaded class, skip heavy animations during scroll
-                entry.target.classList.add('loaded');
-                
-                // Delay heavy initializations to avoid scroll blocking
-                const sectionId = entry.target.id;
-                setTimeout(() => {
-                    switch(sectionId) {
-                        case 'importance':
-                            if (!document.body.classList.contains('scrolling')) {
-                                initStatsAnimation(entry.target);
-                            }
-                            break;
-                    }
-                }, 200); // Delay to avoid blocking scroll
-                
-                sectionObserver.unobserve(entry.target);
-            }
-        });
-    }, {
-        threshold: 0.4, // Higher threshold to trigger less frequently
-        rootMargin: '0px 0px -200px 0px' // Larger margin to reduce triggers
-    });
-
-    sections.forEach(section => {
-        sectionObserver.observe(section);
-    });
-}
-
-/**
- * Optimized Stats Animation - Minimal resource usage
- */
-function initStatsAnimation(section) {
-    const statNumbers = section.querySelectorAll('.stat-number');
-    
-    statNumbers.forEach(stat => {
-        const finalValue = stat.textContent;
-        const isPercentage = finalValue.includes('%');
-        const numericValue = parseInt(finalValue.replace(/[^\d]/g, ''));
-        
-        let currentValue = 0;
-        const increment = numericValue / 20; // Reduced to 20 steps for better performance
-        
-        const counter = setInterval(() => {
-            currentValue += increment;
-            if (currentValue >= numericValue) {
-                currentValue = numericValue;
-                clearInterval(counter);
-            }
-            
-            stat.textContent = isPercentage ? 
-                Math.floor(currentValue) + '%' : 
-                Math.floor(currentValue) + (finalValue.includes('M') ? 'M' : '');
-        }, 50); // Slower interval to reduce CPU usage
-    });
-}
-
-/**
- * Pipeline Animation - Staggered entrance
- */
-function initPipelineAnimation(section) {
-    const steps = section.querySelectorAll('.pipeline-step');
-    const arrows = section.querySelectorAll('.pipeline-arrow');
-    
-    steps.forEach((step, index) => {
-        setTimeout(() => {
-            step.style.opacity = '1';
-            step.style.transform = 'translateY(0) scale(1)';
-        }, index * 200);
-    });
-    
-    arrows.forEach((arrow, index) => {
-        setTimeout(() => {
-            arrow.style.opacity = '1';
-            arrow.style.transform = 'translateX(0)';
-        }, (index * 200) + 100);
-    });
-}
-
-/**
- * Feature Cards - Hover optimizations
- */
-function initFeatureCards(section) {
-    const cards = section.querySelectorAll('.feature-card');
-    
-    cards.forEach(card => {
-        card.addEventListener('mouseenter', () => {
-            card.style.transform = 'translateY(-10px) scale(1.02)';
-        });
-        
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'translateY(0) scale(1)';
-        });
-    });
-}
-
-/**
- * Cursor Performance Monitor
- * Monitors cursor performance and optimizes based on frame rate
- */
-function monitorCursorPerformance() {
-    if (!document.querySelector('.custom-cursor')) return;
-    
-    let frameCount = 0;
-    let lastTime = performance.now();
-    
-    const checkPerformance = () => {
-        frameCount++;
-        const currentTime = performance.now();
-        
-        if (currentTime - lastTime >= 1000) { // Check every second
-            const fps = frameCount;
-            frameCount = 0;
-            lastTime = currentTime;
-            
-            // Optimize cursor based on performance
-            const cursor = document.querySelector('.custom-cursor');
-            if (cursor && fps < 30) {
-                // Reduce cursor quality on low-end devices
-                cursor.style.boxShadow = 'none';
-                cursor.style.backdropFilter = 'none';
-                console.log('%cCursor optimized for low-end device', 'color: orange');
-            }
-        }
-        
-        requestAnimationFrame(checkPerformance);
-    };
-    
-    requestAnimationFrame(checkPerformance);
-}
-
-/**
- * Performance Monitoring - INP Tracker
- * Monitors Interaction to Next Paint for performance optimization
- */
-function monitorINP() {
-    // Simple INP monitoring
-    let interactionStart = 0;
-    
-    ['click', 'keydown', 'pointerdown'].forEach(eventType => {
-        document.addEventListener(eventType, () => {
-            interactionStart = performance.now();
-        });
-    });
-    
-    // Monitor paint events
-    const observer = new PerformanceObserver((list) => {
-        const entries = list.getEntries();
-        entries.forEach((entry) => {
-            if (entry.entryType === 'paint' && interactionStart > 0) {
-                const inp = entry.startTime - interactionStart;
-                if (inp > 0) {
-                    console.log(`%cINP: ${inp.toFixed(2)}ms`, inp > 200 ? 'color: red' : inp > 100 ? 'color: orange' : 'color: green');
-                }
-            }
-        });
-    });
-    
-    try {
-        observer.observe({ entryTypes: ['paint', 'navigation'] });
-        console.log('%cINP monitoring enabled - optimized for performance', 'color: #10b981');
-    } catch (e) {
-        console.log('Performance monitoring not supported in this browser');
-    }
-}

@@ -7,8 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize essential functionality with aggressive performance optimization
     initFastPreloader();
     initUltraLightNavigation();
-    initSmoothScrolling(); // Add smooth scrolling
-    initScrollToTopButton(); // Add scroll to top functionality
     initResponsiveHandling();
     
     // Initialize performance-optimized cursor
@@ -174,29 +172,9 @@ function initFastPreloader() {
         setTimeout(() => {
             preloader.classList.add('hidden');
             document.body.classList.add('loaded');
-            // Ensure body scroll is enabled
-            document.body.style.overflow = '';
-            document.body.style.height = '';
             preloader.remove();
         }, 100); // Very fast removal
-    } else {
-        // If no preloader, ensure body scroll is enabled
-        document.body.classList.add('loaded');
-        document.body.style.overflow = '';
-        document.body.style.height = '';
     }
-    
-    // Fallback: Ensure content is always visible after 1 second
-    setTimeout(() => {
-        if (!document.body.classList.contains('loaded')) {
-            document.body.classList.add('loaded');
-            console.log('Fallback: Added loaded class to body');
-        }
-        // Force remove any scroll blocking
-        document.body.style.overflow = '';
-        document.body.style.position = '';
-        document.body.style.height = '';
-    }, 1000);
 }
 
 /**
@@ -304,9 +282,6 @@ function initUltraLightNavigation() {
             document.body.classList.add('scrolling');
             scrolling = true;
             
-            // Debug scroll event
-            console.log('Scroll detected, position:', currentScrollY);
-            
             // Optimize cursor during scroll
             const cursor = document.querySelector('.custom-cursor');
             if (cursor) {
@@ -343,77 +318,6 @@ function initUltraLightNavigation() {
     
     // Use passive listener for better performance
     window.addEventListener('scroll', handleScroll, { passive: true });
-    
-    // Debug: Test scroll functionality
-    console.log('Scroll listener added, initial scroll position:', window.scrollY);
-    
-    // Test scroll after page load
-    setTimeout(() => {
-        console.log('Page fully loaded. Document height:', document.body.scrollHeight);
-        console.log('Viewport height:', window.innerHeight);
-        console.log('Can scroll:', document.body.scrollHeight > window.innerHeight);
-        console.log('Body overflow style:', window.getComputedStyle(document.body).overflow);
-        
-        // Manual scroll test
-        console.log('Testing manual scroll...');
-        window.scrollTo({ top: 100, behavior: 'smooth' });
-        setTimeout(() => {
-            console.log('After scroll test, position:', window.scrollY);
-        }, 1000);
-    }, 500);
-}
-
-/**
- * Smooth Scrolling
- * Implements smooth scrolling for internal navigation links.
- */
-function initSmoothScrolling() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                const offsetTop = target.getBoundingClientRect().top + window.pageYOffset - 80; // Account for navbar
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
-                
-                // Close mobile menu if open
-                const hamburger = document.querySelector('.hamburger');
-                const navMenu = document.querySelector('.nav-menu');
-                if (hamburger && hamburger.classList.contains('active')) {
-                    hamburger.classList.remove('active');
-                    navMenu.classList.remove('active');
-                    document.body.style.overflow = ''; // Re-enable scroll
-                }
-            }
-        });
-    });
-}
-
-/**
- * Scroll to Top Button
- * Displays a button to scroll to the top of the page when scrolled down.
- */
-function initScrollToTopButton() {
-    const scrollToTopBtn = document.getElementById('scrollToTop');
-    if (scrollToTopBtn) {
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                scrollToTopBtn.classList.add('visible');
-            } else {
-                scrollToTopBtn.classList.remove('visible');
-            }
-        }, { passive: true });
-
-        scrollToTopBtn.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-    }
 }
 
 /**
@@ -1507,21 +1411,15 @@ function setupMobileNavigation() {
     const toggleBodyScroll = (disable) => {
         if (disable) {
             document.body.style.overflow = 'hidden';
-            document.body.style.position = 'fixed';
-            document.body.style.width = '100%';
         } else {
             document.body.style.overflow = '';
-            document.body.style.position = '';
-            document.body.style.width = '';
         }
     };
     
     if (hamburger) {
         hamburger.addEventListener('click', () => {
             const isActive = hamburger.classList.contains('active');
-            hamburger.classList.toggle('active');
-            navMenu.classList.toggle('active');
-            toggleBodyScroll(hamburger.classList.contains('active'));
+            toggleBodyScroll(!isActive);
         });
     }
 }

@@ -750,7 +750,7 @@ body::before {
     transition: opacity 1s ease;
 }
 
-<<<<<<< HEAD
+
 .dna-helix.loaded {
     opacity: 1;
 }
@@ -852,8 +852,7 @@ body::before {
     box-shadow: 0 0 20px rgba(45, 212, 191, 0.8);
 }
 
-=======
->>>>>>> parent of 391857c (Fishes Added)
+
 /* General Section Styling */
 section {
     padding: var(--spacing-xl) 0;
